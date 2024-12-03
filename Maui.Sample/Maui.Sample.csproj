@@ -71,6 +71,20 @@
 		<ProjectReference Include="..\Maui.Controls.Sample.Blazor\Maui.Controls.Sample.Blazor.csproj" />
 		<ProjectReference Include="..\Maui.Controls.WPF\Maui.Controls.WPF.csproj" />
 	</ItemGroup>
+
+	<!-- WPF -->
+	<ItemGroup Condition="'$(TargetFramework)' == '$(BaseTargetFramework)-windows'">
+		<Compile Remove="**\Windows\**\*.cs" />
+		<None Include="**\Windows\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<MauiXaml Remove="**\Windows\**\*.xaml" />
+		<None Include="**\Windows\**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<Compile Remove="**\Windows\**\*.xaml.cs" />
+		<None Include="**\Windows\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<!--<ApplicationDefinition Include="Platforms\WPF\App.xaml" />
+		<Compile Include="**\WPF\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<Compile Include="**\WPF\**\.*xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />-->
+
+	</ItemGroup>
 	
 	
 
