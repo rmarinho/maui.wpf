@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Controls.WPF", "Maui.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Controls.Sample.Blazor", "Maui.Controls.Sample.Blazor\Maui.Controls.Sample.Blazor.csproj", "{B474E80C-F937-4EC9-8695-FCB635E3E4D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui.Sample", "Maui.Sample\Maui.Sample.csproj", "{238DB5A9-3FF3-45D1-8BD4-D238FA7805F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{B474E80C-F937-4EC9-8695-FCB635E3E4D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B474E80C-F937-4EC9-8695-FCB635E3E4D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B474E80C-F937-4EC9-8695-FCB635E3E4D1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{238DB5A9-3FF3-45D1-8BD4-D238FA7805F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{238DB5A9-3FF3-45D1-8BD4-D238FA7805F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{238DB5A9-3FF3-45D1-8BD4-D238FA7805F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{238DB5A9-3FF3-45D1-8BD4-D238FA7805F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
