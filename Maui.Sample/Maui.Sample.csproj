@@ -44,6 +44,11 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)' == '$(BaseTargetFramework)-windows'">
+		<OutputType>WinExe</OutputType>
+		<EnableDefaultWindowsItems>false</EnableDefaultWindowsItems>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -74,18 +79,80 @@
 
 	<!-- WPF -->
 	<ItemGroup Condition="'$(TargetFramework)' == '$(BaseTargetFramework)-windows'">
+
+		
 		<Compile Remove="**\Windows\**\*.cs" />
 		<None Include="**\Windows\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-		<MauiXaml Remove="**\Windows\**\*.xaml" />
 		<None Include="**\Windows\**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-		<Compile Remove="**\Windows\**\*.xaml.cs" />
-		<None Include="**\Windows\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-		<!--<ApplicationDefinition Include="Platforms\WPF\App.xaml" />
-		<Compile Include="**\WPF\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-		<Compile Include="**\WPF\**\.*xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />-->
+		<MauiXaml Remove="**\Windows\**\*.xaml" />
+		<Page Remove="**\Windows\**\*.xaml" />
 
+		<EmbeddedResource Remove="**\Windows\**\*.xaml" />
+		<Compile Include="**\WPF\**\*.cs" />
+
+		<Compile Include="**/WPF/**/*$(DefaultLanguageSourceExtension)"/>
+		<Compile Include="**\WPF\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Page Include="Platforms\WPF\App.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		
+
+		<ApplicationDefinition  Include="Platforms\WPF\App.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</ApplicationDefinition>
+
+		<Page
+        Include="Platforms/WPF/**/*.xaml"
+        Exclude="$(_SingleProjectWindowsExcludes);@(ApplicationDefinition)">
+			<Generator>MSBuild:Compile</Generator>
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
 	</ItemGroup>
-	
-	
+
+
+	<!--<Target Name="_MauiRemovePlatformCompileItems2"
+		AfterTargets="_MauiRemovePlatformCompileItems" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun"
+		Condition="'$(TargetFramework)' == '$(BaseTargetFramework)-windows' ">
+
+		--><!-- Removals --><!--
+		<ItemGroup>
+			--><!-- Remove everything that isn't part of this platform --><!--
+			<Compile
+				Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' "
+				Remove="$(PlatformsProjectFolder)**/*$(DefaultLanguageSourceExtension)" />
+
+			--><!-- Remove all Windows (WinUI) XAML Files from the Windows folder --><!--
+			<_MauiXamlToRemove
+				Condition="'$(WindowsProjectFolder)' != ''"
+				Include="$(WindowsProjectFolder)**/*.xaml" />
+			<EmbeddedResource Remove="@(_MauiXamlToRemove)" />
+			<MauiXaml Remove="@(_MauiXamlToRemove)" />
+		</ItemGroup>
+		
+		
+
+	</Target>-->
+
+	<ItemGroup Condition="'$(TargetFramework)' != '$(BaseTargetFramework)-windows'">
+		<Compile Remove="**\WPF\**\*.cs" />
+		<None Include="**\WPF\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<None Include="**\WPF\**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<MauiXaml Remove="**\WPF\**\*.xaml" />
+		
+		<!--<Page Remove="Platforms\WPF\App.xaml"/>-->
+		
+	</ItemGroup>
+
+	<!--<ItemGroup>
+	  <Page Include="Platforms\WPF\App.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>-->
+	<!--<ItemGroup>
+	  <Folder Include="Platforms\WPF\" />
+	</ItemGroup>-->
 
 </Project>
